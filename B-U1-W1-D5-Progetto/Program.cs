@@ -71,9 +71,9 @@ namespace B_U1_W1_D5_Progetto
                     utente.dataNascita = new DataNascita();
 
                     Console.WriteLine("Ripresa Processo per Laguda Stefano");
-                  
-                    Console.WriteLine();
 
+
+                    // DATA NASCITA
                     Console.WriteLine("\nData di nascita");
                     Console.WriteLine("Inserire il giorno");
                     utente.dataNascita.Giorno = int.Parse(Console.ReadLine());
@@ -82,19 +82,18 @@ namespace B_U1_W1_D5_Progetto
                     Console.WriteLine("Inserire l'anno");
                     utente.dataNascita.Anno = int.Parse(Console.ReadLine());
 
-
-                    Console.WriteLine("\nCodice Fiscale");
-                    utente.CodiceFiscale = Console.ReadLine();
-
-
-                    Console.WriteLine("\nSesso");
-                    utente.Sesso = Console.ReadLine();
+                    // CODICE FISCALE
+                    utente.CodiceFiscale = getString("Codice Fiscale").ToUpper();
 
 
-                    Console.WriteLine("\nComune di Residenza");
-                    utente.ComuneResidenza = Console.ReadLine();
+                    // SESSO
+                    utente.Sesso = getString("Sesso");
 
 
+                    // COMUNE DI RESIDENZA
+                    utente.ComuneResidenza = getString("Comune di Residenza");
+
+                    // REDDITO ANNUALE
                     Console.WriteLine("\nReddito Annuale");
                     utente.RedditoAnnuale = int.Parse(Console.ReadLine());
 
