@@ -25,14 +25,15 @@ namespace B_U1_W1_D5_Progetto
                     Console.WriteLine("Scegli l'operazione da effettuare");
                     Console.WriteLine("1. Avviare il processo di inserimento dati per il calcolo dell'imposta sul reddito");
                     Console.WriteLine("2. Storico Contribuenti");
-                    Console.WriteLine("3. Esci");
+                    Console.WriteLine("3. Ripresa del processo di inserimento dati di Laguda Stefano");
+                    Console.WriteLine("4. Esci");
                     Console.WriteLine("====================================\n");
 
                     int scelta = int.Parse(Console.ReadLine());
 
-                    if(scelta <= 0 || scelta > 3 ) {
+                    if(scelta <= 0 || scelta > 4 ) {
                         Console.WriteLine("Hai inserito una scelta non esistente.\n");
-                        Contribuente.MostraAzioniSportello();
+                        MostraAzioniSportello();
                     }
 
                     switch (scelta)
@@ -44,6 +45,9 @@ namespace B_U1_W1_D5_Progetto
                             StoricoContribuenti();
                             break;
                         case 3:
+                            getDatiContribuenteStefano();
+                            break;
+                        case 4:
                             Console.WriteLine("\nFine Operazioni");                           
                             Environment.Exit(0);
                             break;
@@ -58,80 +62,158 @@ namespace B_U1_W1_D5_Progetto
                     MostraAzioniSportello();
                 }
             }
+            public static void getDatiContribuenteStefano()
+            {
+                try
+                {
+                    Utente utente = new Utente("Stefano", "Laguda");
 
+                    utente.dataNascita = new DataNascita();
+
+                    Console.WriteLine("Ripresa Processo per Laguda Stefano");
+                  
+                    Console.WriteLine();
+
+                    Console.WriteLine("\nData di nascita");
+                    Console.WriteLine("Inserire il giorno");
+                    utente.dataNascita.Giorno = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Inserire il mese");
+                    utente.dataNascita.Mese = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Inserire l'anno");
+                    utente.dataNascita.Anno = int.Parse(Console.ReadLine());
+
+
+                    Console.WriteLine("\nCodice Fiscale");
+                    utente.CodiceFiscale = Console.ReadLine();
+
+
+                    Console.WriteLine("\nSesso");
+                    utente.Sesso = Console.ReadLine();
+
+
+                    Console.WriteLine("\nComune di Residenza");
+                    utente.ComuneResidenza = Console.ReadLine();
+
+
+                    Console.WriteLine("\nReddito Annuale");
+                    utente.RedditoAnnuale = int.Parse(Console.ReadLine());
+
+
+                    listUtents.Add(utente);
+                    Contribuente.CalcoloImpostaReddito();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("\nRiavvio esecuzione in corso...");
+                    Thread.Sleep(3000);
+                    getDatiContribuente();
+                }
+
+
+
+            }
             public static void getDatiContribuente() {
+                try
+                {
+                    Utente utente = new Utente();
 
-                Utente utente = new Utente();
+                    utente.dataNascita = new DataNascita();
 
-                utente.dataNascita = new DataNascita();
+                    Console.WriteLine("Inizio Processo");
+                    Console.WriteLine("\nInserire il suo nome e cognome in questo ordine:");
 
-                Console.WriteLine("Inizio Processo");
-                Console.WriteLine("\nInserire il suo nome e cognome in questo ordine:");
- 
-                Console.WriteLine("\nNome");
-                utente.Nome = Console.ReadLine();
-
-
-                Console.WriteLine("\nCognome");
-                utente.Cognome = Console.ReadLine();
+                    Console.WriteLine("\nNome");
+                    utente.Nome = Console.ReadLine();
 
 
-                Console.WriteLine("\nData di nascita");
-                Console.WriteLine("Inserire il giorno");
-                utente.dataNascita.Giorno = Console.ReadLine();
-                Console.WriteLine("Inserire il mese");
-                utente.dataNascita.Mese = Console.ReadLine();
-                Console.WriteLine("Inserire l'anno");
-                utente.dataNascita.Anno = Console.ReadLine();
+                    Console.WriteLine("\nCognome");
+                    utente.Cognome = Console.ReadLine();
 
 
-                Console.WriteLine("\nCodice Fiscale");
-                utente.CodiceFiscale = Console.ReadLine();
+                    Console.WriteLine("\nData di nascita");
+                    Console.WriteLine("Inserire il giorno");
+                    utente.dataNascita.Giorno = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Inserire il mese");
+                    utente.dataNascita.Mese = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Inserire l'anno");
+                    utente.dataNascita.Anno = int.Parse(Console.ReadLine());
 
 
-                Console.WriteLine("\nSesso");
-                utente.Sesso = Console.ReadLine();
+                    Console.WriteLine("\nCodice Fiscale");
+                    utente.CodiceFiscale = Console.ReadLine();
 
 
-                Console.WriteLine("\nComune di Residenza");
-                utente.ComuneResidenza = Console.ReadLine();
+                    Console.WriteLine("\nSesso");
+                    utente.Sesso = Console.ReadLine();
 
 
-                Console.WriteLine("\nReddito Annuale");
-                utente.RedditoAnnuale = int.Parse(Console.ReadLine());
+                    Console.WriteLine("\nComune di Residenza");
+                    utente.ComuneResidenza = Console.ReadLine();
 
 
-                listUtents.Add(utente);
-                Contribuente.CalcoloImpostaReddito();
+                    Console.WriteLine("\nReddito Annuale");
+                    utente.RedditoAnnuale = int.Parse(Console.ReadLine());
+
+
+                    listUtents.Add(utente);
+                    Contribuente.CalcoloImpostaReddito();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("\nRiavvio esecuzione in corso...");
+                    Thread.Sleep(3000);
+                    getDatiContribuente();
+                }
+
+
+                
             }
             public static void CalcoloImpostaReddito() {
-                int ultimoUtente = listUtents.Count - 1;
 
-
-                if (listUtents[ultimoUtente].RedditoAnnuale > 0 && listUtents[ultimoUtente].RedditoAnnuale <= 15000)
+                try
                 {
-                    listUtents[ultimoUtente].ImpostaDaVersare = (listUtents[ultimoUtente].RedditoAnnuale * 23) / 100;
+                    int ultimoUtente = listUtents.Count - 1;
 
-                } else if (listUtents[ultimoUtente].RedditoAnnuale > 15001 && listUtents[ultimoUtente].RedditoAnnuale <= 28000) {
+                    if (listUtents[ultimoUtente].RedditoAnnuale > 0 && listUtents[ultimoUtente].RedditoAnnuale <= 15000)
+                    {
+                        listUtents[ultimoUtente].ImpostaDaVersare = (listUtents[ultimoUtente].RedditoAnnuale * 23) / 100;
 
-                    listUtents[ultimoUtente].ImpostaDaVersare = (((listUtents[ultimoUtente].RedditoAnnuale - 15000) * 27) / 100) + 3450;
+                    }
+                    else if (listUtents[ultimoUtente].RedditoAnnuale > 15001 && listUtents[ultimoUtente].RedditoAnnuale <= 28000)
+                    {
 
-                } else if (listUtents[ultimoUtente].RedditoAnnuale > 28001 && listUtents[ultimoUtente].RedditoAnnuale <= 55000) {
+                        listUtents[ultimoUtente].ImpostaDaVersare = (((listUtents[ultimoUtente].RedditoAnnuale - 15000) * 27) / 100) + 3450;
 
-                    listUtents[ultimoUtente].ImpostaDaVersare = (((listUtents[ultimoUtente].RedditoAnnuale - 28000) * 38) / 100) + 6960;
+                    }
+                    else if (listUtents[ultimoUtente].RedditoAnnuale > 28001 && listUtents[ultimoUtente].RedditoAnnuale <= 55000)
+                    {
 
-                } else if (listUtents[ultimoUtente].RedditoAnnuale > 55001 && listUtents[ultimoUtente].RedditoAnnuale <= 75000)
-                {
+                        listUtents[ultimoUtente].ImpostaDaVersare = (((listUtents[ultimoUtente].RedditoAnnuale - 28000) * 38) / 100) + 6960;
 
-                    listUtents[ultimoUtente].ImpostaDaVersare = (((listUtents[ultimoUtente].RedditoAnnuale - 55000) * 41) / 100) + 17220;
+                    }
+                    else if (listUtents[ultimoUtente].RedditoAnnuale > 55001 && listUtents[ultimoUtente].RedditoAnnuale <= 75000)
+                    {
 
-                } else if (listUtents[ultimoUtente].RedditoAnnuale > 75001)
-                {
+                        listUtents[ultimoUtente].ImpostaDaVersare = (((listUtents[ultimoUtente].RedditoAnnuale - 55000) * 41) / 100) + 17220;
 
-                    listUtents[ultimoUtente].ImpostaDaVersare = (((listUtents[ultimoUtente].RedditoAnnuale - 75000) * 43) / 100) + 25420;
+                    }
+                    else if (listUtents[ultimoUtente].RedditoAnnuale > 75001)
+                    {
 
+                        listUtents[ultimoUtente].ImpostaDaVersare = (((listUtents[ultimoUtente].RedditoAnnuale - 75000) * 43) / 100) + 25420;
+
+                    }
+                    MostraRisultatiContribuente();
                 }
-                Contribuente.MostraRisultatiContribuente();
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("\nRiavvio esecuzione in corso...");
+                    Thread.Sleep(3000); ;
+                }             
+                
             }
 
             public static void MostraRisultatiContribuente() {
@@ -164,6 +246,10 @@ namespace B_U1_W1_D5_Progetto
             {
                 try
                 {
+                    if(listUtents == null){
+                        Console.WriteLine("\nNon é presente alcun contribuente nel databese");
+                        MostraAzioniSportello();
+                    }
                     foreach (Utente item in listUtents)
                     {
                         Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -183,7 +269,7 @@ namespace B_U1_W1_D5_Progetto
                     Console.WriteLine(ex.Message);
                 } finally {
                     Thread.Sleep(2000);
-                    Contribuente.MostraAzioniSportello();
+                    MostraAzioniSportello();
                 }
 
             }
@@ -199,13 +285,20 @@ namespace B_U1_W1_D5_Progetto
             public string ComuneResidenza { get; set; }
             public double RedditoAnnuale { get; set; }
             public double ImpostaDaVersare { get; set; }
+
+            public Utente() { }
+
+            public Utente(string Nome, string Cognome) {
+                this.Nome = Nome;
+                this.Cognome = Cognome;
+            }
         }
 
         public class DataNascita
         {
-            public string Giorno { get; set; }
-            public string Mese { get; set; }
-            public string Anno { get; set; }
+            public int Giorno { get; set; }
+            public int Mese { get; set; }
+            public int Anno { get; set; }
         }
     }
 
