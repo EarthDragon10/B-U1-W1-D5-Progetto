@@ -113,6 +113,22 @@ namespace B_U1_W1_D5_Progetto
 
 
             }
+
+            public static bool checkString(string inputStr)
+            {
+                bool isEmpty = inputStr.Length == 0;
+                int numb;
+                bool isNumeric = int.TryParse(inputStr, out numb);
+
+                if(isEmpty || isNumeric)
+                {
+                    return true;
+                } else
+                {
+                    return false;
+                }
+               // return isEmpty;
+            }
             public static void getDatiContribuente() {
                 try
                 {
@@ -123,14 +139,15 @@ namespace B_U1_W1_D5_Progetto
                     Console.WriteLine("Inizio Processo");
                     Console.WriteLine("\nInserire il suo nome e cognome in questo ordine:");
 
-                    Console.WriteLine("\nNome");
-                    utente.Nome = Console.ReadLine();
+                    // NOME
+                    utente.Nome = getString("Nome");
+                   
 
+                    // COGNOME
+                    utente.Cognome = getString("Cognome");
+                    
 
-                    Console.WriteLine("\nCognome");
-                    utente.Cognome = Console.ReadLine();
-
-
+                    // DATA NASCITA
                     Console.WriteLine("\nData di nascita");
                     Console.WriteLine("Inserire il giorno");
                     utente.dataNascita.Giorno = int.Parse(Console.ReadLine());
@@ -139,19 +156,18 @@ namespace B_U1_W1_D5_Progetto
                     Console.WriteLine("Inserire l'anno");
                     utente.dataNascita.Anno = int.Parse(Console.ReadLine());
 
+                    // CODICE FISCALE
+                    utente.CodiceFiscale = getString("Codice Fiscale").ToUpper();
+                   
 
-                    Console.WriteLine("\nCodice Fiscale");
-                    utente.CodiceFiscale = Console.ReadLine();
+                    // SESSO
+                    utente.Sesso = getString("Sesso");
+                   
 
-
-                    Console.WriteLine("\nSesso");
-                    utente.Sesso = Console.ReadLine();
-
-
-                    Console.WriteLine("\nComune di Residenza");
-                    utente.ComuneResidenza = Console.ReadLine();
-
-
+                    // COMUNE DI RESIDENZA
+                    utente.ComuneResidenza = getString("Comune di Residenza");
+                 
+                    // REDDITO ANNUALE
                     Console.WriteLine("\nReddito Annuale");
                     utente.RedditoAnnuale = int.Parse(Console.ReadLine());
 
@@ -169,6 +185,20 @@ namespace B_U1_W1_D5_Progetto
 
 
                 
+            }
+            public static string getString(string campoScelta)
+            {
+                Console.WriteLine($"\n{campoScelta}");
+                string inputStr = Console.ReadLine();
+                if (checkString(inputStr))
+                {
+                    Console.WriteLine("\nHai lasciato vuoto il campo o hai inserito dei caratteri numerici\n");
+                    getString(campoScelta);
+                    return "";
+                } else
+                {
+                    return inputStr;
+                };
             }
             public static void CalcoloImpostaReddito() {
 
@@ -246,7 +276,7 @@ namespace B_U1_W1_D5_Progetto
             {
                 try
                 {
-                    if(listUtents == null){
+                    if(listUtents.Count == 0){
                         Console.WriteLine("\nNon é presente alcun contribuente nel databese");
                         MostraAzioniSportello();
                     }
